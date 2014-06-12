@@ -17,6 +17,10 @@
                 <th>Nom</th>
                 <td>{{ entity.nom }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
+            </tr>
         </tbody>
     </table>
 
