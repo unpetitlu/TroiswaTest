@@ -1,0 +1,4 @@
+troiswa_test:
+    resource: "@TroiswaTestBundle/Resources/config/routing.yml"
+    prefix:   /
+

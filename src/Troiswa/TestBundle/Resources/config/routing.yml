@@ -1,0 +1,15 @@
+troiswa_test_image:
+    resource: "@TroiswaTestBundle/Resources/config/routing/image.yml"
+    prefix:   /image
+
+TroiswaTestBundle_actor:
+        resource: "@TroiswaTestBundle/Resources/config/routing/actor.yml"
+        prefix:   /actor
+
+TroiswaTestBundle_movie:
+        resource: "@TroiswaTestBundle/Resources/config/routing/movie.yml"
+        prefix:   /movie
+
+TroiswaTestBundle_category:
+        resource: "@TroiswaTestBundle/Resources/config/routing/category.yml"
+        prefix:   /category

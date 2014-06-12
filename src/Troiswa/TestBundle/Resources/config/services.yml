@@ -1,0 +1,7 @@
+parameters:
+#    troiswa_test.example.class: Troiswa\TestBundle\Example
+
+services:
+#    troiswa_test.example:
+#        class: %troiswa_test.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
