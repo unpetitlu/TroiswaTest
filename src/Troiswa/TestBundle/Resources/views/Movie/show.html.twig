@@ -13,6 +13,10 @@
                 <th>Titre</th>
                 <td>{{ entity.titre }}</td>
             </tr>
+            <tr>
+                <th>Actor</th>
+                <td>{% for actor in entity.actors %} {{ actor.prenom }} {{ actor.nom }} {% endfor %}</td>
+            </tr>
         </tbody>
     </table>
 

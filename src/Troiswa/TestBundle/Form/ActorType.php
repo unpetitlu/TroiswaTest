@@ -18,7 +18,7 @@ class ActorType extends AbstractType
         $builder
             ->add('prenom')
             ->add('nom')
-            ->add('image', new ImageType())
+            ->add('image', new ImageType(), array('required' => false))
             ->add('movies')
         ;
     }

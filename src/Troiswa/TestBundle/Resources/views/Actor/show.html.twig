@@ -21,6 +21,10 @@
                 <th>Image</th>
                 <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
             </tr>
+            <tr>
+                <th>Film</th>
+                <td>{% for movie in entity.movies %} {{ movie.titre }} {% endfor %}</td>
+            </tr>
         </tbody>
     </table>
 
