@@ -38,7 +38,6 @@ class Movie
     */
     private $category;
 
-
     /**
      * Get id
      *
