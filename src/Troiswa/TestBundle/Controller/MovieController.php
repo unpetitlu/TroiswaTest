@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Troiswa\TestBundle\Entity\Movie;
+use Troiswa\TestBundle\Entity\Category;
 use Troiswa\TestBundle\Form\MovieType;
 
 /**
@@ -169,6 +170,21 @@ class MovieController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $data = $request->request->get('troiswa_testbundle_movie');
+            
+            if ($data['category'])
+            {
+                $category = new Category();
+                $category->setTitre($data['category']);
+                $validator = $this->get('validator');
+                $errors = $validator->validate($category);
+                if(count($errors) == 0)
+                {
+                    $em->persist($category);
+                    $entity->setCategory($category);
+                }
+            }
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('movie_edit', array('id' => $id)));

@@ -3,6 +3,7 @@
 namespace Troiswa\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Movie
@@ -29,12 +30,14 @@ class Movie
     private $titre;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor", mappedBy="movies")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor")
+    * @ORM\JoinTable(name="actor_movie")
     */
     private $actors;
 
     /**
     * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Category", inversedBy="movies")
+    * @Assert\Valid()
     */
     private $category;
 
@@ -86,6 +89,7 @@ class Movie
      */
     public function addActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
+        die('addactor');
         $this->actors[] = $actors;
 
         return $this;
@@ -98,6 +102,7 @@ class Movie
      */
     public function removeActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
+        die('removeactore');
         $this->actors->removeElement($actors);
     }
 

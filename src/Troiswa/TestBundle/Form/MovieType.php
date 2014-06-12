@@ -5,6 +5,7 @@ namespace Troiswa\TestBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Troiswa\TestBundle\Form\CategoryType;
 
 class MovieType extends AbstractType
 {
@@ -17,7 +18,7 @@ class MovieType extends AbstractType
         $builder
             ->add('titre')
             ->add('actors')
-            ->add('category')
+            ->add('category', 'text', array('mapped' => false))
         ;
     }
     

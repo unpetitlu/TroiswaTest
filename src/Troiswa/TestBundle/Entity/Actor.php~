@@ -41,7 +41,7 @@ class Actor
     private $image;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie", inversedBy="actors")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie")
     * @ORM\JoinTable(name="actor_movie")
     */
     private $movies;
@@ -126,4 +126,56 @@ class Actor
         return $this->image;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->movies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add movies
+     *
+     * @param \Troiswa\TestBundle\Entity\Movie $movies
+     * @return Actor
+     */
+    public function addMovie(\Troiswa\TestBundle\Entity\Movie $movies)
+    {
+        die('addmovie');
+        if (!$this->movies->contains($movies))
+        {
+            $this->movies[] = $movies;
+            $movies->addActor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove movies
+     *
+     * @param \Troiswa\TestBundle\Entity\Movie $movies
+     */
+    public function removeMovie(\Troiswa\TestBundle\Entity\Movie $movies)
+    {
+        die('removemovie');
+        $this->movies->removeElement($movies);
+        $movies->removeActor($this);
+    }
+
+    /**
+     * Get movies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMovies()
+    {
+        return $this->movies;
+    }
+
+    public function __toString()
+    {
+        return $this->prenom.'-'.$this->nom;
+    }
 }

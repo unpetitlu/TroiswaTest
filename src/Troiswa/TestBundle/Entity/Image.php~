@@ -32,6 +32,8 @@ class Image
 
     private $file;
 
+    private $temp;
+
 
     /**
      * Get id
@@ -74,6 +76,16 @@ class Image
     public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        }
+        else
+        {
+            $this->path = 'initial';
+        }
     }
 
     /**
@@ -98,8 +110,8 @@ class Image
         }
 
         // Si on avait un ancien fichier, on le supprime
-        if (null !== $this->path) {
-            $oldFile = $this->getAbsolutePath();
+        if (null !== $this->temp) {
+            $oldFile = $this->getAbsoluteOldPath();
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -127,6 +139,11 @@ class Image
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getAbsoluteOldPath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->temp;
     }
 
     public function getWebPath()

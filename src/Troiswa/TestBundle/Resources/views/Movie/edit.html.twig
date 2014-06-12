@@ -12,5 +12,13 @@
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
+    <li>
+    	Les films ({{ entity.actors|length }})
+    	<ul>
+    		{% for actor in entity.actors %}
+    			<li>{{ actor.prenom }} {{ actor.prenom }}</li>
+    		{% endfor %}
+    	</ul>
+    </li>
 </ul>
 {% endblock %}
