@@ -55,7 +55,15 @@ class Actor
     private $image;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie", inversedBy="actors")
+    * @ORM\JoinTable(name="actor_movie",
+    *   joinColumns={
+    *     @ORM\JoinColumn(name="actor_id", referencedColumnName="id")
+    *   },
+    *   inverseJoinColumns={
+    *     @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
+    *   }
+    * )
     */
     private $movies;
 
@@ -156,11 +164,9 @@ class Actor
      */
     public function addMovie(\Troiswa\TestBundle\Entity\Movie $movies)
     {
-        die('addmovie');
         if (!$this->movies->contains($movies))
         {
             $this->movies[] = $movies;
-            $movies->addActor($this);
         }
 
         return $this;
@@ -173,7 +179,6 @@ class Actor
      */
     public function removeMovie(\Troiswa\TestBundle\Entity\Movie $movies)
     {
-        die('removemovie');
         $this->movies->removeElement($movies);
         $movies->removeActor($this);
     }

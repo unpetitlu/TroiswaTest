@@ -172,7 +172,7 @@ class MovieController extends Controller
         if ($editForm->isValid()) {
             $data = $request->request->get('troiswa_testbundle_movie');
             
-            if ($data['category'])
+            if (isset($data['category']))
             {
                 $category = new Category();
                 $category->setTitre($data['category']);
@@ -186,6 +186,7 @@ class MovieController extends Controller
             }
 
             $em->flush();
+            die('');
 
             return $this->redirect($this->generateUrl('movie_edit', array('id' => $id)));
         }

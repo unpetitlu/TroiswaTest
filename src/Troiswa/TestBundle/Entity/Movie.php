@@ -30,7 +30,7 @@ class Movie
     private $titre;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor", mappedBy="movies")
     */
     private $actors;
 
@@ -88,10 +88,20 @@ class Movie
      */
     public function addActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
-        die('addactor');
-        $this->actors[] = $actors;
+        echo "hello";
+        foreach ($this->actors->getSnapShot() as $actor)
+        {
+            echo 'supprimer : '.$actor->getId(); 
+            $actor->removeMovie($this);
+        }
 
-        return $this;
+        $this->actors[] = $actors;
+        
+        foreach ($this->actors as $actor)
+        {
+            echo 'ajout : '.$actor->getId();
+            $actor->addMovie($this);
+        }
     }
 
     /**
@@ -101,7 +111,6 @@ class Movie
      */
     public function removeActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
-        die('removeactore');
         $this->actors->removeElement($actors);
     }
 

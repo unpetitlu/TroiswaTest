@@ -17,8 +17,8 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('actors')
-            ->add('category', 'text', array('mapped' => false))
+            ->add('actors', null, array('by_reference' => false))
+            //->add('category', 'text', array('mapped' => false))
         ;
     }
     

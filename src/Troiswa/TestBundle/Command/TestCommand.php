@@ -34,5 +34,24 @@ class TestCommand extends ContainerAwareCommand
         }
 
         $output->writeln($text);
+
+        $message = new \Swift_Message();
+        $message->setSubject('Hello Email')
+                        ->setFrom('send@example.com')
+                        ->setTo('ludo.verrecchia@gmail.com')
+                        ->setBody('Coucou, ceci est un test');
+
+        // ... préparez le message
+
+        $container = $this->getContainer();
+        $mailer = $container->get('mailer');
+
+        $mailer->send($message);
+
+        // maintenant nettoyez la file manuellement
+        $spool = $mailer->getTransport()->getSpool();
+        $transport = $container->get('swiftmailer.transport.real');
+
+        $spool->flushQueue($transport);
     }
 }
