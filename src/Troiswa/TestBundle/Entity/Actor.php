@@ -29,6 +29,20 @@ class Actor
     private $prenom;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sexe", type="boolean")
+     */
+    private $sexe;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="date_de_naissance", type="datetime")
+     */
+    private $datenaissance;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
@@ -131,6 +145,7 @@ class Actor
     public function __construct()
     {
         $this->movies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->datenaissance = new \DateTime('now');
     }
 
     /**
@@ -176,5 +191,51 @@ class Actor
     public function __toString()
     {
         return $this->prenom.'-'.$this->nom;
+    }
+
+    /**
+     * Set datenaissance
+     *
+     * @param \DateTime $datenaissance
+     * @return Actor
+     */
+    public function setDatenaissance($datenaissance)
+    {
+        $this->datenaissance = $datenaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get datenaissance
+     *
+     * @return \DateTime 
+     */
+    public function getDatenaissance()
+    {
+        return $this->datenaissance;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param boolean $sexe
+     * @return Actor
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return boolean 
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
     }
 }

@@ -5,3 +5,7 @@ services:
 #    troiswa_test.example:
 #        class: %troiswa_test.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+        troiswa_test.twig.util_extension:
+            class: Troiswa\TestBundle\Twig\UtilExtension
+            tags:
+                - { name: twig.extension }

@@ -31,7 +31,6 @@ class Movie
 
     /**
     * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor")
-    * @ORM\JoinTable(name="actor_movie")
     */
     private $actors;
 

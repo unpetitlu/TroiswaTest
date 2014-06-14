@@ -18,6 +18,14 @@
                 <td>{{ entity.nom }}</td>
             </tr>
             <tr>
+                <th>Sexe</th>
+                <td>{{ entity.sexe|gender }}</td>
+            </tr>
+            <tr>
+                <th>Âge</th>
+                <td>{{ entity.datenaissance|date("m/d/Y") }} : {{ age(entity.datenaissance) }}</td>
+            </tr>
+            <tr>
                 <th>Image</th>
                 <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
             </tr>
