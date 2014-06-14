@@ -3,6 +3,17 @@
 {% block body -%}
     <h1>Actor</h1>
 
+    {% macro input(name) %}
+        coucou {{ name }}
+    {% endmacro %}
+
+    {% import _self as chouette %}
+    {% import "TroiswaTestBundle:Macro:function.html.twig" as function %}
+
+    {{ chouette.input('ludo') }}
+
+    {{ function.link('actor', 'page des acteurs') }}
+
     <table class="record_properties">
         <tbody>
             <tr>
