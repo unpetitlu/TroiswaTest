@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Troiswa\TestBundle\Form\CategoryType;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
 class MovieType extends AbstractType
 {
         /**
@@ -18,8 +21,20 @@ class MovieType extends AbstractType
         $builder
             ->add('titre')
             ->add('actors', null, array('by_reference' => false))
-            //->add('category', 'text', array('mapped' => false))
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+    }
+
+    public function onPreSetData(FormEvent $event)
+    {
+        $movie = $event->getData();
+        $form = $event->getForm();
+
+        if (!$movie || null === $movie->getId())
+        {
+            $form->add('category', 'text', array('mapped' => false));
+        }
     }
     
     /**

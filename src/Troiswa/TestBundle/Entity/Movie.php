@@ -88,20 +88,8 @@ class Movie
      */
     public function addActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
-        echo "hello";
-        foreach ($this->actors->getSnapShot() as $actor)
-        {
-            echo 'supprimer : '.$actor->getId(); 
-            $actor->removeMovie($this);
-        }
-
         $this->actors[] = $actors;
-        
-        foreach ($this->actors as $actor)
-        {
-            echo 'ajout : '.$actor->getId();
-            $actor->addMovie($this);
-        }
+        $actors->addMovie($this);
     }
 
     /**
@@ -112,6 +100,7 @@ class Movie
     public function removeActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
         $this->actors->removeElement($actors);
+        $actors->removeMovie($this);
     }
 
     /**

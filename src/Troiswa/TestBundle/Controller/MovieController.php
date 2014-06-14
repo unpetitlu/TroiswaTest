@@ -186,7 +186,6 @@ class MovieController extends Controller
             }
 
             $em->flush();
-            die('');
 
             return $this->redirect($this->generateUrl('movie_edit', array('id' => $id)));
         }
