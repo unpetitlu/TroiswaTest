@@ -57,7 +57,9 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
+                {% if entity.image is not null %}
+                    <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Film</th>
@@ -79,4 +81,5 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+
 {% endblock %}

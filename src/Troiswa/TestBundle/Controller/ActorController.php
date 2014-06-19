@@ -1,5 +1,7 @@
 <?php
-
+// {% transchoice count %}
+//     {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+// {% endtranschoice %}
 namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;

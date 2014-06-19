@@ -20,7 +20,13 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('actors', null, array('by_reference' => false))
+           ->add('actors', 'entity', array(
+                'class' => 'TroiswaTestBundle:Actor',
+                'property' => 'prenomnom',
+                'by_reference' => false,
+                'multiple' => true,
+                'expanded' => false
+                ))
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));

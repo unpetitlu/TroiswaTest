@@ -1,6 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+	
+	{% form_theme edit_form _self %}
+
+	{% block form_widget %}
+		hello
+	{% endblock form_widget %}
+
     <h1>Actor edit</h1>
 
     {{ form(edit_form) }}

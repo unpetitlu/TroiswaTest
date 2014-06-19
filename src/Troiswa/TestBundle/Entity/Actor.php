@@ -232,4 +232,9 @@ class Actor
     {
         return $this->sexe;
     }
+
+    public function getPrenomnom()
+    {
+        return $this->prenom.'-'.$this->nom;
+    }
 }
