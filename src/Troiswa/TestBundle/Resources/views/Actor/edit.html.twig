@@ -10,6 +10,22 @@
 
     <h1>Actor edit</h1>
 
+    {#
+    importe « _self » en tant qu'habillage du formulaire
+    {% form_theme form _self %}
+    #}
+
+    {#
+    effectue la personnalisation du fragment de formulaire
+    {% block form_row %}
+    personnalisez l'affichage de la ligne du champ
+    {% endblock form_row %}
+    #}
+
+    {#
+    {% form_theme form 'TroiswaTestBundle:Form:fields.html.twig' %}
+    #}
+
     {{ form(edit_form) }}
 
         <ul class="record_actions">

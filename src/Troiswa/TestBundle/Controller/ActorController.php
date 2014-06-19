@@ -93,8 +93,9 @@ class ActorController extends Controller
      * Finds and displays a Actor entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
+        //$request->setLocale('en');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TroiswaTestBundle:Actor')->find($id);
