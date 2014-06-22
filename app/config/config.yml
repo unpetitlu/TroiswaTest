@@ -30,7 +30,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         site: troiswatest
-        site2: %site2%
+        site2: dansparameters
 
 # Assetic Configuration
 assetic:

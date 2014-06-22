@@ -19,7 +19,15 @@
     {% form_theme form 'TroiswaTestBundle:Form:fields.html.twig' %}
     #}
 
-    {{ form(edit_form) }}
+    {{ form_start(edit_form) }}
+
+    {% for emailField in edit_form.favorite_cities %}
+    <li>
+        {{ form_errors(emailField) }}
+        {{ form_widget(emailField) }}
+    </li>
+{% endfor %}
+{{ form_end(edit_form) }}
 
         <ul class="record_actions">
     <li>

@@ -55,10 +55,12 @@
                 <th>Âge</th>
                 <td>{{ entity.datenaissance|date("m/d/Y") }} : {{ age(entity.datenaissance) }}</td>
             </tr>
+            {% if entity.image is not null %}
             <tr>
                 <th>Image</th>
                 <td><img src="{{ asset(entity.image.webpath) }}" width="200px" heigth="200px"></td>
             </tr>
+            {% endif %}
             <tr>
                 <th>Film</th>
                 <td>{% for movie in entity.movies %} {{ movie.titre }} {% endfor %}</td>

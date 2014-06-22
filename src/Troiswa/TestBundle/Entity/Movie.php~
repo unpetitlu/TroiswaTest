@@ -30,8 +30,7 @@ class Movie
     private $titre;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor")
-    * @ORM\JoinTable(name="actor_movie")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Actor", mappedBy="movies")
     */
     private $actors;
 
@@ -40,6 +39,11 @@ class Movie
     * @Assert\Valid()
     */
     private $category;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie")
+    */
+    private $tags;
 
     /**
      * Get id
@@ -89,10 +93,8 @@ class Movie
      */
     public function addActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
-        die('addactor');
         $this->actors[] = $actors;
-
-        return $this;
+        $actors->addMovie($this);
     }
 
     /**
@@ -102,8 +104,8 @@ class Movie
      */
     public function removeActor(\Troiswa\TestBundle\Entity\Actor $actors)
     {
-        die('removeactore');
         $this->actors->removeElement($actors);
+        $actors->removeMovie($this);
     }
 
     /**

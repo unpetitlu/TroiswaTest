@@ -13,3 +13,7 @@ TroiswaTestBundle_movie:
 TroiswaTestBundle_category:
         resource: "@TroiswaTestBundle/Resources/config/routing/category.yml"
         prefix:   /category
+
+TroiswaTestBundle_tag:
+        resource: "@TroiswaTestBundle/Resources/config/routing/tag.yml"
+        prefix:   /tag

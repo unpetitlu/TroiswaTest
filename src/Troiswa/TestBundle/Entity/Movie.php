@@ -41,6 +41,11 @@ class Movie
     private $category;
 
     /**
+    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie", cascade={"persist"})
+    */
+    private $tags;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -139,5 +144,38 @@ class Movie
     public function __toString()
     {
         return $this->titre;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \Troiswa\TestBundle\Entity\MovieTag $tags
+     * @return Movie
+     */
+    public function addTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \Troiswa\TestBundle\Entity\MovieTag $tags
+     */
+    public function removeTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
