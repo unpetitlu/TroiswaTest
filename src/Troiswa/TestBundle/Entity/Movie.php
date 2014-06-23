@@ -41,7 +41,7 @@ class Movie
     private $category;
 
     /**
-    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie")
     */
     private $tags;
 
@@ -83,6 +83,7 @@ class Movie
     public function __construct()
     {
         $this->actors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -155,6 +156,7 @@ class Movie
     public function addTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
     {
         $this->tags[] = $tags;
+        $tags->setMovie($this);
 
         return $this;
     }
@@ -177,5 +179,10 @@ class Movie
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function setTags()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

@@ -41,9 +41,20 @@ class MovieController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $tags = $entity->getTags();
             $em = $this->getDoctrine()->getManager();
+            $entity->setTags();
             $em->persist($entity);
             $em->flush();
+
+            if ($tags)
+            {
+                foreach ($tags as $key => $value) {
+                    $value->setMovie($entity);
+                    $em->persist($value);
+                }
+                $em->flush();
+            }
 
             return $this->redirect($this->generateUrl('movie_show', array('id' => $entity->getId())));
         }
