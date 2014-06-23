@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Troiswa\TestBundle\Form\CategoryType;
+use Troiswa\TestBundle\Form\MovieTagType;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -20,7 +21,7 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('titre')
-           ->add('actors', 'entity', array(
+            ->add('actors', 'entity', array(
                 'class' => 'TroiswaTestBundle:Actor',
                 'property' => 'prenomnom',
                 'by_reference' => false,

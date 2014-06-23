@@ -3,7 +3,7 @@ actor:
     defaults: { _controller: "TroiswaTestBundle:Actor:index" }
 
 actor_show:
-    pattern:  /{id}/show
+    pattern:  /{slug}/show
     defaults: { _controller: "TroiswaTestBundle:Actor:show" }
 
 actor_new:

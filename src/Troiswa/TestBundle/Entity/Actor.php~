@@ -3,6 +3,7 @@
 namespace Troiswa\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Actor
@@ -27,6 +28,12 @@ class Actor
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
+
+    /**
+    * @Gedmo\Slug(fields={"prenom", "nom"})
+    * @ORM\Column(length=128)
+    */
+    private $slug;
 
     /**
      * @var boolean
@@ -55,7 +62,8 @@ class Actor
     private $image;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie")
+    * @ORM\ManyToMany(targetEntity="Troiswa\TestBundle\Entity\Movie", inversedBy="actors")
+    * @ORM\JoinTable(name="actor_movie")
     */
     private $movies;
 
@@ -156,12 +164,7 @@ class Actor
      */
     public function addMovie(\Troiswa\TestBundle\Entity\Movie $movies)
     {
-        die('addmovie');
-        if (!$this->movies->contains($movies))
-        {
-            $this->movies[] = $movies;
-            $movies->addActor($this);
-        }
+        $this->movies[] = $movies;
 
         return $this;
     }
@@ -173,9 +176,7 @@ class Actor
      */
     public function removeMovie(\Troiswa\TestBundle\Entity\Movie $movies)
     {
-        die('removemovie');
         $this->movies->removeElement($movies);
-        $movies->removeActor($this);
     }
 
     /**
@@ -214,5 +215,33 @@ class Actor
     public function getDatenaissance()
     {
         return $this->datenaissance;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param boolean $sexe
+     * @return Actor
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return boolean 
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    public function getPrenomnom()
+    {
+        return $this->prenom.'-'.$this->nom;
     }
 }

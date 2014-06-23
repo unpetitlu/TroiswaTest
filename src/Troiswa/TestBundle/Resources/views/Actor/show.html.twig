@@ -7,8 +7,14 @@
         coucou {{ name }}
     {% endmacro %}
 
+    {% macro link(route, name) %}
+        <a href="{{ path(route) }}">{{ name }}</a>
+    {% endmacro %}
+
     {% import _self as chouette %}
     {% import "TroiswaTestBundle:Macro:function.html.twig" as function %}
+<br>
+    {{ chouette.link('actor', 'ceci est un lien') }}
 <br>
     {{ chouette.input('ludo') }}
 <br>
@@ -25,6 +31,15 @@
     {% transchoice count %}
         {0} il n'y a pas d'article |{1} Il y a un article | ]1,Inf] Il y a %count% articles
     {% endtranschoice %}
+
+    <br>
+
+    {% transchoice count with {'%count%': count} %}
+        article.nombre
+    {% endtranschoice %}
+
+    <br>
+    {{ 'article.one'|trans({'%count%': count}) }}
 
 <br>
 
@@ -53,7 +68,7 @@
             </tr>
             <tr>
                 <th>Âge</th>
-                <td>{{ entity.datenaissance|date("m/d/Y") }} : {{ age(entity.datenaissance) }}</td>
+                <td>{{ entity.datenaissance|localizeddate("medium", "none") }} : {{ age(entity.datenaissance) }}</td>
             </tr>
             <tr>
                 <th>Image</th>

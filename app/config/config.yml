@@ -30,7 +30,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         site: troiswatest
-        site2: %site2%
+        site2: parametervariable
 
 # Assetic Configuration
 assetic:
@@ -70,3 +70,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true

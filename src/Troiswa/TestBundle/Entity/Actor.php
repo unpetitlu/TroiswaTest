@@ -3,6 +3,7 @@
 namespace Troiswa\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Actor
@@ -27,6 +28,12 @@ class Actor
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
+
+    /**
+    * @Gedmo\Slug(fields={"prenom", "nom"})
+    * @ORM\Column(length=128)
+    */
+    private $slug;
 
     /**
      * @var boolean
@@ -236,5 +243,28 @@ class Actor
     public function getPrenomnom()
     {
         return $this->prenom.'-'.$this->nom;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Actor
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

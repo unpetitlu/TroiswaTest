@@ -117,11 +117,24 @@ class Image
             }
         }
 
-
+        // Imagine
+        $this->path = $this->file->getClientOriginalName();
+        $extension = strrchr($this->file->getClientOriginalName(), '.');
+        $path_parts = strstr($this->file->getClientOriginalName(), $extension, true);
 
         $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
 
-        $this->path = $this->file->getClientOriginalName();
+        // Imagine next steap
+        $imagine = new \Imagine\Gd\Imagine();
+        $imagine
+            ->open($this->getAbsolutePath())
+            ->thumbnail(new \Imagine\Image\Box(350, 160))
+            ->save(
+                $this->getUploadRootDir().'/' . $path_parts.'-thumb'.$extension,
+                array(
+                    'quality' => 80
+                )
+            );
 
         $this->file = null;
     }

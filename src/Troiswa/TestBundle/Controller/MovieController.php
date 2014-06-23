@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Troiswa\TestBundle\Entity\Movie;
+use Troiswa\TestBundle\Entity\MovieTag;
 use Troiswa\TestBundle\Entity\Category;
 use Troiswa\TestBundle\Form\MovieType;
 
@@ -39,9 +40,9 @@ class MovieController extends Controller
         $entity = new Movie();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        
+        if ($form->isValid()) {   
+            $em = $this->getDoctrine()->getManager(); 
             $em->persist($entity);
             $em->flush();
 
@@ -63,6 +64,28 @@ class MovieController extends Controller
     */
     private function createCreateForm(Movie $entity)
     {
+        $em = $this->getDoctrine()->getManager();
+        $movieTag = new MovieTag();
+        $movieTag->setMovie($entity);
+        $tags = $em->getRepository('TroiswaTestBundle:Tag')->findAll();
+        foreach ($tags as $tag) {
+            $movieTag->setMovie($entity);
+            $movieTag->setTag($tag);
+            $entity->addTag($movieTag);
+        }
+
+
+
+        $new_mail = new Mail();
+$new_mail->setSender($user);
+$new_mail->setDiscussion($discussion);
+ 
+foreach ($discussion->getMessages() as $message)
+{
+       $new_mail->addDestinataire($message->getSender());
+}
+
+
         $form = $this->createForm(new MovieType(), $entity, array(
             'action' => $this->generateUrl('movie_create'),
             'method' => 'POST',
