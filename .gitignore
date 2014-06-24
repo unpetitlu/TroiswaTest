@@ -3,3 +3,5 @@ app/logs
 app/config/parameters.yml
 vendor/
 composer.lock
+tests/_output/*
+tests/_output/*

@@ -41,11 +41,9 @@ class Movie
     private $category;
 
     /**
-    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie", cascade={"all"})
+    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie")
     */
     private $tags;
-
-    private $t;
 
     /**
      * Get id
@@ -86,7 +84,6 @@ class Movie
     {
         $this->actors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->t = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -151,19 +148,27 @@ class Movie
     }
 
     /**
+     * Add tags
+     *
+     * @param \Troiswa\TestBundle\Entity\MovieTag $tags
+     * @return Movie
+     */
+    public function addTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
+    {
+        $this->tags[] = $tags;
+        $tags->setMovie($this);
+
+        return $this;
+    }
+
+    /**
      * Remove tags
      *
      * @param \Troiswa\TestBundle\Entity\MovieTag $tags
      */
     public function removeTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
     {
-        die('removeTag');
         $this->tags->removeElement($tags);
-    }
-
-    public function addTags(\Troiswa\TestBundle\Entity\MovieTag $tags)
-    {
-        $this->tags[] = $tags;
     }
 
     /**
@@ -176,43 +181,8 @@ class Movie
         return $this->tags;
     }
 
-
-    // Important 
-    public function getProduct()
+    public function setTags()
     {
-        $products = new ArrayCollection();
-        
-        foreach($this->po as $p)
-        {
-            $products[] = $p->getProduct();
-        }
-
-        return $products;
-    }
-    // Important
-    public function setTag($tags)
-    {
-        foreach($tags as $t)
-        {
-            $po = new \Troiswa\TestBundle\Entity\MovieTag();
-
-            $po->setMovie($this);
-            $po->setTag($t);
-
-            $this->addTags($po);
-        }
-
-    }
-
-    public function getTag()
-    {
-        $tags = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        foreach($this->getTags() as $t)
-        {
-            $tags[] = $t->getTag();
-        }
-
-        return $tags;
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

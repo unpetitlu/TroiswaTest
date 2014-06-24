@@ -1,0 +1,39 @@
+<?php
+
+namespace Troiswa\TestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ *
+ * @ORM\Table()
+ * @ORM\Entity()
+ */
+class Seance
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Movie")
+    */
+    private $movie;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Cinema")
+    */
+    private $cinema;
+
+    /**
+    * @ORM\Column(name="date_seance", type="datetime")
+    */
+    private $dateseance;
+}

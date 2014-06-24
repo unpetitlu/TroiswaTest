@@ -1,0 +1,30 @@
+seance:
+    pattern:  /
+    defaults: { _controller: "TroiswaTestBundle:Seance:index" }
+
+seance_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TroiswaTestBundle:Seance:show" }
+
+seance_new:
+    pattern:  /new
+    defaults: { _controller: "TroiswaTestBundle:Seance:new" }
+
+seance_create:
+    pattern:  /create
+    defaults: { _controller: "TroiswaTestBundle:Seance:create" }
+    requirements: { _method: post }
+
+seance_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TroiswaTestBundle:Seance:edit" }
+
+seance_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TroiswaTestBundle:Seance:update" }
+    requirements: { _method: post|put }
+
+seance_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TroiswaTestBundle:Seance:delete" }
+    requirements: { _method: post|delete }

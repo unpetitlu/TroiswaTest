@@ -13,3 +13,15 @@ TroiswaTestBundle_movie:
 TroiswaTestBundle_category:
         resource: "@TroiswaTestBundle/Resources/config/routing/category.yml"
         prefix:   /category
+
+TroiswaTestBundle_tag:
+        resource: "@TroiswaTestBundle/Resources/config/routing/tag.yml"
+        prefix:   /tag
+
+TroiswaTestBundle_seance:
+        resource: "@TroiswaTestBundle/Resources/config/routing/seance.yml"
+        prefix:   /seance
+
+TroiswaTestBundle_cinema:
+        resource: "@TroiswaTestBundle/Resources/config/routing/cinema.yml"
+        prefix:   /cinema

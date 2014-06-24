@@ -154,6 +154,7 @@ class Actor
     {
         $this->movies = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datenaissance = new \DateTime('now');
+        $this->sexe = true;
     }
 
     /**

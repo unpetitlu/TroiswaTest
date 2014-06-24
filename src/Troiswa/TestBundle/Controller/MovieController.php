@@ -40,11 +40,23 @@ class MovieController extends Controller
         $entity = new Movie();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
-        if ($form->isValid()) {   
-            $em = $this->getDoctrine()->getManager(); 
+
+        if ($form->isValid()) {
+            $tags = $entity->getTags();
+            $em = $this->getDoctrine()->getManager();
+            $entity->setTags();
+
             $em->persist($entity);
             $em->flush();
+
+            if ($tags)
+            {
+                foreach ($tags as $key => $value) {
+                    $value->setMovie($entity);
+                    $em->persist($value);
+                }
+                $em->flush();
+            }
 
             return $this->redirect($this->generateUrl('movie_show', array('id' => $entity->getId())));
         }
@@ -64,28 +76,6 @@ class MovieController extends Controller
     */
     private function createCreateForm(Movie $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $movieTag = new MovieTag();
-        $movieTag->setMovie($entity);
-        $tags = $em->getRepository('TroiswaTestBundle:Tag')->findAll();
-        foreach ($tags as $tag) {
-            $movieTag->setMovie($entity);
-            $movieTag->setTag($tag);
-            $entity->addTag($movieTag);
-        }
-
-
-
-        $new_mail = new Mail();
-$new_mail->setSender($user);
-$new_mail->setDiscussion($discussion);
- 
-foreach ($discussion->getMessages() as $message)
-{
-       $new_mail->addDestinataire($message->getSender());
-}
-
-
         $form = $this->createForm(new MovieType(), $entity, array(
             'action' => $this->generateUrl('movie_create'),
             'method' => 'POST',
@@ -125,10 +115,15 @@ foreach ($discussion->getMessages() as $message)
             throw $this->createNotFoundException('Unable to find Movie entity.');
         }
 
+        $em = $this->getDoctrine()->getManager();
+
+        $seances = $em->getRepository('TroiswaTestBundle:Seance')->findByMovie($entity->getId());
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TroiswaTestBundle:Movie:show.html.twig', array(
             'entity'      => $entity,
+            'seances' => $seances,
             'delete_form' => $deleteForm->createView(),        ));
     }
 

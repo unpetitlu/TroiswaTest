@@ -34,6 +34,8 @@ class Image
 
     private $temp;
 
+    private static $thumbnail = array('medium' => array(400,400));
+
 
     /**
      * Get id

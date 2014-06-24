@@ -5,9 +5,12 @@ namespace Troiswa\TestBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Troiswa\TestBundle\Form\ImageType;
+use Troiswa\TestBundle\Form\CategoryType;
 
-class ActorType extends AbstractType
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+class MovieTagType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,10 +19,7 @@ class ActorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenom')
-            ->add('nom')
-            ->add('image', new ImageType(), array('required' => false))
-            ->add('movies');
+            ->add('tag');
     }
     
     /**
@@ -28,7 +28,7 @@ class ActorType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Troiswa\TestBundle\Entity\Actor'
+            'data_class' => 'Troiswa\TestBundle\Entity\MovieTag'
         ));
     }
 
@@ -37,6 +37,6 @@ class ActorType extends AbstractType
      */
     public function getName()
     {
-        return 'troiswa_testbundle_actor';
+        return 'troiswa_testbundle_movie_tag';
     }
 }

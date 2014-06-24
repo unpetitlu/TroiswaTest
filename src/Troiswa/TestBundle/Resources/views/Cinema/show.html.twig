@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Movie</h1>
+    <h1>Cinema</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,31 +10,31 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Titre</th>
-                <td>{{ entity.titre }}</td>
+                <th>Nom</th>
+                <td>{{ entity.nom }}</td>
             </tr>
             <tr>
-                <th>Actor</th>
-                <td>{% for actor in entity.actors %} {{ actor.prenom }} {{ actor.nom }} {% endfor %}</td>
+                <th>Adresse</th>
+                <td>{{ entity.adresse }}</td>
             </tr>
         </tbody>
     </table>
 
-    <p>Seance du film</p>
+    <p>Films</p>
     <ul>
-        {% for seance in seances %}
-            <li>{{ seance.cinema.nom }} : {{ seance.dateSeance|date('y-m-d') }}</li>
+        {% for film in films %}
+            <li>{{ film.titre }}</li>
         {% endfor %}
     </ul>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('movie') }}">
+        <a href="{{ path('cinema') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('cinema_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

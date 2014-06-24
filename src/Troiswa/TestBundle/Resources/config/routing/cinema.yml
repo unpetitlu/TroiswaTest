@@ -1,0 +1,30 @@
+cinema:
+    pattern:  /
+    defaults: { _controller: "TroiswaTestBundle:Cinema:index" }
+
+cinema_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TroiswaTestBundle:Cinema:show" }
+
+cinema_new:
+    pattern:  /new
+    defaults: { _controller: "TroiswaTestBundle:Cinema:new" }
+
+cinema_create:
+    pattern:  /create
+    defaults: { _controller: "TroiswaTestBundle:Cinema:create" }
+    requirements: { _method: post }
+
+cinema_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TroiswaTestBundle:Cinema:edit" }
+
+cinema_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TroiswaTestBundle:Cinema:update" }
+    requirements: { _method: post|put }
+
+cinema_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TroiswaTestBundle:Cinema:delete" }
+    requirements: { _method: post|delete }
