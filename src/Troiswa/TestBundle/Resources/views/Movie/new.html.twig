@@ -3,7 +3,9 @@
 {% block body -%}
     <h1>Movie creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_widget(form.titre, {'attr' : {'data-url' : path('movie') } } ) }}
+    {{ form_end(form) }}
 
         <ul class="record_actions">
     <li>
@@ -50,6 +52,17 @@
                 $newLinkLi.before($newFormLi);
             }
 
+            $('#troiswa_testbundle_movie_titre').keyup(function(){
+                var word = $(this).val()
+                var url = $(this).attr('data-url');
+                $.ajax({
+                    url: url,
+                    dateType: 'json',
+                    data: 'word='+word
+                }).done(function(data){
+                    console.log(data);
+                });
+            });
         });
     </script>
 {% endblock %}

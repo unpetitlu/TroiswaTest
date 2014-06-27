@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class MovieRepository extends EntityRepository
 {
+	public function search($word){
+        $query = $this->_em
+            ->createQuery(
+                'SELECT m
+                FROM TroiswaTestBundle:Movie m
+                WHERE m.titre LIKE :movie'
+            )
+            ->setParameter('movie', "%".$word."%");
+
+            return $query->getResult();
+    }
 }

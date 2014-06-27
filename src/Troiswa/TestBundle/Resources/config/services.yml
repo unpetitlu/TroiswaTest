@@ -14,3 +14,7 @@ services:
             class: Twig_Extensions_Extension_Intl
             tags:
                 - { name: twig.extension }
+
+        troiswa_public.email:
+            class: Troiswa\TestBundle\EmailDecorator\Email
+            arguments: [@templating, @mailer]

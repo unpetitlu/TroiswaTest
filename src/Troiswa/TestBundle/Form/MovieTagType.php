@@ -19,7 +19,8 @@ class MovieTagType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tag');
+            ->add('tag')
+            ->add('poids');
     }
     
     /**

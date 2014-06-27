@@ -1,6 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+
+    {{ wo_render_breadcrumbs() }}
+    
     <h1>Movie list</h1>
 
     <table class="records_list">

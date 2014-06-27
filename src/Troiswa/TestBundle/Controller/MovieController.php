@@ -3,7 +3,9 @@
 namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Troiswa\TestBundle\Controller\AbstractController;
 
 use Troiswa\TestBundle\Entity\Movie;
 use Troiswa\TestBundle\Entity\MovieTag;
@@ -14,23 +16,33 @@ use Troiswa\TestBundle\Form\MovieType;
  * Movie controller.
  *
  */
-class MovieController extends Controller
+class MovieController extends AbstractController
 {
 
     /**
      * Lists all Movie entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $breadtab = array('Tous les films' => 'actor', 'affichage' => null);
+        $this->breadcrumbs($breadtab);
+
         $entities = $em->getRepository('TroiswaTestBundle:Movie')->findAll();
 
+        if ($request->isXmlHttpRequest())
+        {
+            $search = $request->query->get('word');
+            $searchs = $em->getRepository('TroiswaTestBundle:Movie')->search($search);
+            return new JsonResponse($searchs);
+        }
         return $this->render('TroiswaTestBundle:Movie:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+    
     /**
      * Creates a new Movie entity.
      *
@@ -105,7 +117,7 @@ class MovieController extends Controller
      * Finds and displays a Movie entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -115,16 +127,29 @@ class MovieController extends Controller
             throw $this->createNotFoundException('Unable to find Movie entity.');
         }
 
+        $response = new Response();
+        $response->setETag(md5($entity->getTitre()));
+        $response->setLastModified($entity->getDateModify());
+
+        $response->setPublic();
+
+        if ($response->isNotModified($request))
+        {
+            return $response;
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $seances = $em->getRepository('TroiswaTestBundle:Seance')->findByMovie($entity->getId());
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TroiswaTestBundle:Movie:show.html.twig', array(
-            'entity'      => $entity,
+        return $this->render('TroiswaTestBundle:Movie:show.html.twig',
+            array(
+            'entity' => $entity,
             'seances' => $seances,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView()
+            ), $response);
     }
 
     /**
@@ -200,6 +225,14 @@ class MovieController extends Controller
                 {
                     $em->persist($category);
                     $entity->setCategory($category);
+                }
+            }
+
+            $oldTags = $entity->getOldTags();
+            if ($oldTags)
+            {
+                foreach ($oldTags as $value) {
+                    $em->remove($value);
                 }
             }
 

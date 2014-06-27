@@ -13,7 +13,7 @@ class MovieTag
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Movie", inversedBy="tags")
+     * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Movie", inversedBy="tags", cascade={"persist"})
      */
     private $movie;
 
@@ -22,6 +22,13 @@ class MovieTag
      * @ORM\ManyToOne(targetEntity="Troiswa\TestBundle\Entity\Tag")
      */
     private $tag;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="poids", type="integer")
+     */
+    private $poids;
 
     /**
      * Set movie
@@ -67,5 +74,28 @@ class MovieTag
     public function getTag()
     {
         return $this->tag;
+    }
+
+    /**
+     * Set poids
+     *
+     * @param integer $poids
+     * @return MovieTag
+     */
+    public function setPoids($poids)
+    {
+        $this->poids = $poids;
+
+        return $this;
+    }
+
+    /**
+     * Get poids
+     *
+     * @return integer 
+     */
+    public function getPoids()
+    {
+        return $this->poids;
     }
 }
