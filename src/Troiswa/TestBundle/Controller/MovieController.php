@@ -3,6 +3,7 @@
 namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Troiswa\TestBundle\Entity\Movie;
@@ -20,15 +21,23 @@ class MovieController extends Controller
      * Lists all Movie entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('TroiswaTestBundle:Movie')->findAll();
 
-        return $this->render('TroiswaTestBundle:Movie:index.html.twig', array(
+        $response = new Response();
+
+        $response = $this->render('TroiswaTestBundle:Movie:index.html.twig', array(
             'entities' => $entities,
         ));
+
+        $response->setPublic();
+        $response->setMaxAge(600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
     /**
      * Creates a new Movie entity.
