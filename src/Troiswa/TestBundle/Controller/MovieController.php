@@ -4,9 +4,10 @@ namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Troiswa\TestBundle\Controller\AbstractController;
 use Troiswa\TestBundle\Entity\Movie;
+use Troiswa\TestBundle\Entity\MovieTag;
 use Troiswa\TestBundle\Entity\Category;
 use Troiswa\TestBundle\Form\MovieType;
 
@@ -14,7 +15,7 @@ use Troiswa\TestBundle\Form\MovieType;
  * Movie controller.
  *
  */
-class MovieController extends Controller
+class MovieController extends AbstractController
 {
 
     /**
@@ -25,20 +26,40 @@ class MovieController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $breadtab = array('Tous les films' => 'actor', 'affichage' => null);
+        $this->breadcrumbs($breadtab);
+
         $entities = $em->getRepository('TroiswaTestBundle:Movie')->findAll();
 
-        $response = new Response();
 
-        $response = $this->render('TroiswaTestBundle:Movie:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $response = new Response();
+        echo var_dump($response->isNotModified($request));
+        if ($response->isNotModified($request))
+        {
+            return $response;
+        }
+
+        $response->setContent($this->renderView('TroiswaTestBundle:Movie:index.html.twig', array('entities' => $entities)));
+
+        if ($request->isXmlHttpRequest())
+        {
+            $search = $request->query->get('word');
+            $searchs = $em->getRepository('TroiswaTestBundle:Movie')->search($search);
+            return new JsonResponse($searchs);
+        }
 
         $response->setPublic();
         $response->setMaxAge(600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
 
+        $date = new \DateTime();
+        $date->modify('+600 seconds');
+
+        $response->setExpires($date);
+
         return $response;
     }
+    
     /**
      * Creates a new Movie entity.
      *
@@ -53,6 +74,7 @@ class MovieController extends Controller
             $tags = $entity->getTags();
             $em = $this->getDoctrine()->getManager();
             $entity->setTags();
+
             $em->persist($entity);
             $em->flush();
 
@@ -112,7 +134,7 @@ class MovieController extends Controller
      * Finds and displays a Movie entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -122,11 +144,29 @@ class MovieController extends Controller
             throw $this->createNotFoundException('Unable to find Movie entity.');
         }
 
+        $response = new Response();
+        $response->setETag(md5($entity->getTitre()));
+        $response->setLastModified($entity->getDateModify());
+
+        $response->setPublic();
+
+        if ($response->isNotModified($request))
+        {
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $seances = $em->getRepository('TroiswaTestBundle:Seance')->findByMovie($entity->getId());
+
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TroiswaTestBundle:Movie:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        return $this->render('TroiswaTestBundle:Movie:show.html.twig',
+            array(
+            'entity' => $entity,
+            'seances' => $seances,
+            'delete_form' => $deleteForm->createView()
+            ), $response);
     }
 
     /**
@@ -202,6 +242,14 @@ class MovieController extends Controller
                 {
                     $em->persist($category);
                     $entity->setCategory($category);
+                }
+            }
+
+            $oldTags = $entity->getOldTags();
+            if ($oldTags)
+            {
+                foreach ($oldTags as $value) {
+                    $em->remove($value);
                 }
             }
 

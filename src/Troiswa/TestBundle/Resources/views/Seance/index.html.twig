@@ -1,31 +1,28 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
-    {{ wo_render_breadcrumbs() }}
-    
-    <h1>Movie list</h1>
+    <h1>Seance list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Titre</th>
+                <th>Dateseance</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('movie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.titre }}</td>
+                <td><a href="{{ path('seance_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.dateseance %}{{ entity.dateseance|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('movie_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('seance_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('seance_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -36,7 +33,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('movie_new') }}">
+            <a href="{{ path('seance_new') }}">
                 Create a new entry
             </a>
         </li>

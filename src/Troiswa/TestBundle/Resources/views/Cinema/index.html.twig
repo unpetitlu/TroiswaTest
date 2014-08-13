@@ -1,31 +1,30 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
-    {{ wo_render_breadcrumbs() }}
-    
-    <h1>Movie list</h1>
+    <h1>Cinema list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Titre</th>
+                <th>Nom</th>
+                <th>Adresse</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('movie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.titre }}</td>
+                <td><a href="{{ path('cinema_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.nom }}</td>
+                <td>{{ entity.adresse }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('movie_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('cinema_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('cinema_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -36,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('movie_new') }}">
+            <a href="{{ path('cinema_new') }}">
                 Create a new entry
             </a>
         </li>

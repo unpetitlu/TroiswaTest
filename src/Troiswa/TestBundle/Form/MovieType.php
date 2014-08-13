@@ -27,6 +27,7 @@ class MovieType extends AbstractType
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,))
+
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));

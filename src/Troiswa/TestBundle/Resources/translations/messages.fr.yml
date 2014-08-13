@@ -1,2 +1,5 @@
 coucou: lala
 hello: bidule
+article:
+    nombre: "{1}Il y a %count% article|]1,+Inf]Il y a %count% articles"
+    one: "Il y a %count% article"

@@ -41,9 +41,16 @@ class Movie
     private $category;
 
     /**
-    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie")
+    * @ORM\OneToMany(targetEntity="Troiswa\TestBundle\Entity\MovieTag", mappedBy="movie", cascade={"persist", "remove"})
     */
     private $tags;
+
+    private $oldTags;
+    
+    /**
+    * @ORM\Column(name="date_modify", type="datetime")
+    */
+    private $dateModify;
 
     /**
      * Get id
@@ -84,6 +91,8 @@ class Movie
     {
         $this->actors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->oldTags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dateModify = new \DateTime('now');
     }
 
     /**
@@ -169,6 +178,7 @@ class Movie
     public function removeTag(\Troiswa\TestBundle\Entity\MovieTag $tags)
     {
         $this->tags->removeElement($tags);
+        $this->oldTags[] = $tags;
     }
 
     /**
@@ -184,5 +194,38 @@ class Movie
     public function setTags()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getparent()
+    {
+        return null;
+    }
+
+    public function getOldTags()
+    {
+        return $this->oldTags;
+    }
+
+    /**
+     * Set dateModify
+     *
+     * @param \DateTime $dateModify
+     * @return Movie
+     */
+    public function setDateModify($dateModify)
+    {
+        $this->dateModify = $dateModify;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModify
+     *
+     * @return \DateTime 
+     */
+    public function getDateModify()
+    {
+        return $this->dateModify;
     }
 }

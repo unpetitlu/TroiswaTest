@@ -19,7 +19,12 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "imagine/imagine": "dev-master",
-        "codeception/codeception": "dev-master"
+        "knplabs/knp-last-tweets-bundle": "*",
+        "abraham/twitteroauth": "dev-master",
+        "ricardoper/twitteroauth": "dev-master",
+        "stof/doctrine-extensions-bundle" : "~1.1@dev",
+        "codeception/codeception": "dev-master",
+        "whiteoctober/breadcrumbs-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

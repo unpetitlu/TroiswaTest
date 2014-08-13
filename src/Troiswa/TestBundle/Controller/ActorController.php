@@ -1,5 +1,7 @@
 <?php
-
+// {% transchoice count %}
+//     {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+// {% endtranschoice %}
 namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -7,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Troiswa\TestBundle\Entity\Actor;
 use Troiswa\TestBundle\Form\ActorType;
+use TwitterOAuth\TwitterOAuth;
 
 /**
  * Actor controller.
@@ -21,6 +24,28 @@ class ActorController extends Controller
      */
     public function indexAction()
     {
+        // $config = array(
+        //     'consumer_key' => $this->container->getParameter('consumer_key'),
+        //     'consumer_secret' => $this->container->getParameter('consumer_secret'),
+        //     'oauth_token' => $this->container->getParameter('oauth_token'),
+        //     'oauth_token_secret' => $this->container->getParameter('oauth_token_secret'),
+        //     'output_format' => 'object'
+        // );
+
+        // $tw = new TwitterOAuth($config);
+
+        // $params = array(
+        //     'screen_name' => 'unpetitlu',
+        //     'count' => 5,
+        //     'exclude_replies' => true
+        // );
+
+        // $tweets = $tw->get('statuses/user_timeline', $params);
+
+        // foreach ($tweets as $tweet) {
+        //     die(var_dump($tweet->text));
+        // }
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('TroiswaTestBundle:Actor')->findAll();
@@ -89,20 +114,20 @@ class ActorController extends Controller
 
     /**
      * Finds and displays a Actor entity.
-     *
+     * 
      */
-    public function showAction($id, Request $request)
+    public function showAction(Actor $entity, Request $request)
     {
         //$request->setLocale('en');
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TroiswaTestBundle:Actor')->find($id);
+        //$entity = $em->getRepository('TroiswaTestBundle:Actor')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Actor entity.');
-        }
+        //if (!$entity) {
+            //throw $this->createNotFoundException('Unable to find Actor entity.');
+        //}
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return $this->render('TroiswaTestBundle:Actor:show.html.twig', array(
             'entity'      => $entity,

@@ -24,6 +24,13 @@ class MovieTag
     private $tag;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="poids", type="integer")
+     */
+    private $poids;
+
+    /**
      * Set movie
      *
      * @param \Troiswa\TestBundle\Entity\Movie $movie

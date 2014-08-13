@@ -30,7 +30,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         site: troiswatest
-        site2: dansparameters
+        site2: parametervariable
 
 # Assetic Configuration
 assetic:
@@ -42,8 +42,8 @@ assetic:
         cssrewrite: ~
         #closure:
         #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+        yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
 doctrine:
@@ -70,3 +70,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
