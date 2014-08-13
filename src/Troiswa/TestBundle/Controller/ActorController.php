@@ -6,6 +6,7 @@ namespace Troiswa\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Troiswa\TestBundle\Entity\Actor;
 use Troiswa\TestBundle\Form\ActorType;
@@ -114,7 +115,7 @@ class ActorController extends Controller
 
     /**
      * Finds and displays a Actor entity.
-     * 
+     * @ParamConverter("entity", options={"mapping": {"slug": "slug"}})
      */
     public function showAction(Actor $entity, Request $request)
     {
