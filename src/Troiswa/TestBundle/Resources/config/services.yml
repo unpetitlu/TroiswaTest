@@ -18,3 +18,19 @@ services:
         troiswa_public.email:
             class: Troiswa\TestBundle\EmailDecorator\Email
             arguments: [@templating, @mailer]
+
+        troiswa_public.builder_menu:
+            class: Troiswa\TestBundle\Menu\Builder2
+            arguments: ['@knp_menu.factory', '@doctrine.orm.entity_manager']
+
+        troiswa_public.second_menu:
+            class: Knp\Menu\MenuItem # the service definition requires setting the class
+            factory_service: troiswa_public.builder_menu
+            factory_method: secondMenu
+            tags:
+                - { name: knp_menu.menu, alias: secondMenu }
+
+        troiswa_user.registration.form.type:
+            class: Troiswa\TestBundle\Form\RegistrationFormType
+            tags:
+                - { name: form.type, alias: acme_user_registration }

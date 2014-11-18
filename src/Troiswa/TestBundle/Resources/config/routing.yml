@@ -1,3 +1,7 @@
+troiswa_test_homepage:
+    pattern: /
+    defaults: { _controller: "TroiswaTestBundle:Main:index" }
+
 troiswa_test_image:
     resource: "@TroiswaTestBundle/Resources/config/routing/image.yml"
     prefix:   /image

@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new Troiswa\TestBundle\TroiswaTestBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
 
         );
 

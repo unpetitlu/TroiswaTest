@@ -24,7 +24,10 @@
         "ricardoper/twitteroauth": "dev-master",
         "stof/doctrine-extensions-bundle" : "~1.1@dev",
         "codeception/codeception": "dev-master",
-        "whiteoctober/breadcrumbs-bundle": "dev-master"
+        "whiteoctober/breadcrumbs-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "~2.0",
+        "friendsofsymfony/elastica-bundle": "~3.0.2",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
